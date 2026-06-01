@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>✧･ﾟ: *✧･ﾟ:* Generador de Tooltips Kawaii *:･ﾟ✧*:･ﾟ✧</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink-hot: #ff69b4;
+      --pink-light: #ffb6c1;
+      --pink-pastel: #ffc0cb;
+      --purple-neon: #da70d6;
+      --blue-cyan: #00ffff;
+      --blue-light: #87ceeb;
+      --yellow: #ffff00;
+      --lime: #c8f542;
+      --white: #ffffff;
+      --black: #1a0b2e;
+      --shadow: rgba(255, 105, 180, 0.5);
+    }
+
+    @keyframes rainbow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+      50% { opacity: 0.5; transform: scale(1.2) rotate(180deg); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 5px var(--pink-hot), 0 0 10px var(--pink-hot), 0 0 15px var(--purple-neon); }
+      50% { box-shadow: 0 0 10px var(--blue-cyan), 0 0 20px var(--blue-cyan), 0 0 30px var(--pink-hot); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-100%) rotate(-5deg); opacity: 0; }
+      to { transform: translateX(0) rotate(0deg); opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 50%, #1a0b2e 100%);
+      color: var(--white);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Stars background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, var(--white), transparent),
+        radial-gradient(2px 2px at 40px 70px, var(--pink-light), transparent),
+        radial-gradient(1px 1px at 90px 40px, var(--blue-cyan), transparent),
+        radial-gradient(2px 2px at 130px 80px, var(--purple-neon), transparent),
+        radial-gradient(1px 1px at 160px 120px, var(--yellow), transparent);
+      background-repeat: repeat;
+      background-size: 200px 200px;
+      animation: sparkle 3s infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 1;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    header h1 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(1.2rem, 4vw, 2rem);
+      font-weight: 700;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--pink-hot), var(--purple-neon), var(--blue-cyan), var(--pink-hot));
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: rainbow 5s linear infinite;
+      text-shadow: 0 0 30px var(--pink-hot);
+      line-height: 1.5;
+      padding: 0.5rem;
+    }
+
+    header p {
+      color: var(--pink-light);
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      font-family: 'VT323', monospace;
+      text-shadow: 0 0 10px var(--pink-hot);
+      animation: blink 2s infinite;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 3px solid var(--pink-hot);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 
+        0 0 20px var(--shadow),
+        inset 0 0 20px rgba(255, 182, 193, 0.2);
+      position: relative;
+      overflow: hidden;
+      animation: slideIn 0.6s ease-out;
+    }
+
+    .card::before {
+      content: '✨';
+      position: absolute;
+      top: -10px;
+      right: 10px;
+      font-size: 2rem;
+      animation: sparkle 2s infinite;
+    }
+
+    .card::after {
+      content: '♥';
+      position: absolute;
+      bottom: -5px;
+      left: 10px;
+      font-size: 1.5rem;
+      color: var(--pink-hot);
+      animation: bounce 1s infinite;
+    }
+
+    label {
+      display: block;
+      font-size: 1rem;
+      color: var(--blue-cyan);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.7rem;
+      text-shadow: 0 0 10px var(--blue-cyan);
+    }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid var(--purple-neon);
+      border-radius: 15px;
+      color: var(--white);
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      padding: 1rem;
+      outline: none;
+      transition: all 0.3s;
+      box-shadow: 0 0 10px rgba(218, 112, 214, 0.3);
+    }
+
+    textarea:focus, input[type="text"]:focus {
+      border-color: var(--pink-hot);
+      box-shadow: 0 0 20px var(--pink-hot), 0 0 40px var(--purple-neon);
+      transform: scale(1.02);
+    }
+
+    textarea { 
+      resize: vertical; 
+      min-height: 120px; 
+    }
+
+    textarea::placeholder, input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .row > * { flex: 1; min-width: 180px; }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255, 105, 180, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      border: 2px dashed var(--pink-hot);
+    }
+
+    .toggle-row label { 
+      margin: 0; 
+      font-size: 0.9rem; 
+      color: var(--pink-light); 
+      text-transform: none; 
+      letter-spacing: 1px;
+      font-family: 'Quicksand', sans-serif;
+      text-shadow: none;
+    }
+
+    /* Toggle switch kawaii */
+    .switch { 
+      position: relative; 
+      width: 50px; 
+      height: 28px; 
+      flex-shrink: 0; 
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; inset: 0;
+      background: var(--black);
+      border: 2px solid var(--purple-neon);
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 0 10px rgba(218, 112, 214, 0.5);
+    }
+    .slider::before {
+      content: '☆';
+      position: absolute;
+      width: 20px; 
+      height: 20px;
+      left: 3px; 
+      top: 2px;
+      background: var(--pink-hot);
+      border-radius: 50%;
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: white;
+      box-shadow: 0 0 10px var(--pink-hot);
+    }
+    .switch input:checked + .slider { 
+      background: var(--purple-neon); 
+      border-color: var(--pink-hot);
+      box-shadow: 0 0 20px var(--pink-hot);
+    }
+    .switch input:checked + .slider::before { 
+      transform: translateX(22px); 
+      background: var(--blue-cyan);
+      content: '★';
+      box-shadow: 0 0 15px var(--blue-cyan);
+    }
+
+    /* Tooltip list */
+    #tooltips-list { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 1rem; 
+    }
+
+    .tooltip-item {
+      background: rgba(255, 182, 193, 0.15);
+      border: 2px solid var(--blue-cyan);
+      border-radius: 15px;
+      padding: 1.2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 1rem;
+      align-items: end;
+      animation: fadeIn 0.5s ease;
+      position: relative;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    }
+
+    .tooltip-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 25px rgba(0, 255, 255, 0.4);
+      border-color: var(--pink-hot);
+    }
+
+    @keyframes fadeIn { 
+      from { opacity:0; transform: translateY(-10px) rotate(-1deg); } 
+      to { opacity:1; transform:none; } 
+    }
+
+    .tooltip-item .field { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 0.5rem; 
+    }
+    
+    .tooltip-item label { 
+      font-size: 0.6rem; 
+      color: var(--yellow);
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    .btn-remove {
+      background: linear-gradient(135deg, var(--pink-hot), var(--purple-neon));
+      border: none;
+      border-radius: 50%;
+      color: white;
+      cursor: pointer;
+      font-size: 1.2rem;
+      width: 40px; 
+      height: 40px;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      transition: all 0.3s;
+      box-shadow: 0 0 15px var(--pink-hot);
+      font-family: 'Quicksand', sans-serif;
+    }
+    
+    .btn-remove:hover { 
+      transform: rotate(90deg) scale(1.1); 
+      box-shadow: 0 0 25px var(--pink-hot);
+      background: linear-gradient(135deg, #ff1493, #da70d6);
+    }
+
+    button.btn {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      padding: 1rem 1.5rem;
+      transition: all 0.3s;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button.btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s;
+    }
+
+    button.btn:hover::before {
+      left: 100%;
+    }
+
+    button.btn:active { 
+      transform: scale(0.95); 
+    }
+
+    .btn-add { 
+      background: transparent;
+      color: var(--pink-hot); 
+      border: 3px dashed var(--pink-hot); 
+      width: 100%; 
+      margin-top: 0.5rem; 
+      padding: 1rem;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+    }
+    
+    .btn-add:hover {
+      background: rgba(255, 105, 180, 0.2);
+      border-style: solid;
+      box-shadow: 0 0 25px var(--pink-hot);
+      transform: translateY(-2px);
+    }
+
+    .btn-generate { 
+      background: linear-gradient(135deg, var(--pink-hot), var(--purple-neon)); 
+      color: white; 
+      padding: 1.2rem 2rem; 
+      font-size: 0.8rem;
+      box-shadow: 0 0 20px var(--pink-hot);
+      animation: glow 2s infinite;
+    }
+    
+    .btn-generate:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 30px var(--pink-hot);
+    }
+
+    .btn-copy { 
+      background: linear-gradient(135deg, var(--blue-cyan), var(--blue-light)); 
+      color: var(--black); 
+      border: none;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    }
+    
+    .btn-copy:hover {
+      box-shadow: 0 0 25px var(--blue-cyan);
+      transform: translateY(-2px);
+    }
+
+    .btn-download { 
+      background: linear-gradient(135deg, var(--lime), #7fff00); 
+      color: var(--black);
+      box-shadow: 0 0 15px rgba(200, 245, 66, 0.5);
+    }
+    
+    .btn-download:hover {
+      box-shadow: 0 0 25px var(--lime);
+      transform: translateY(-2px);
+    }
+
+    .actions { 
+      display: flex; 
+      gap: 1rem; 
+      flex-wrap: wrap; 
+      align-items: center; 
+      justify-content: center;
+    }
+
+    /* Result */
+    #result-section { 
+      display: none; 
+      border-color: var(--lime);
+      animation: glow 3s infinite;
+    }
+    
+    #result-section.visible { 
+      display: block; 
+    }
+
+    .preview-box {
+      background: linear-gradient(135deg, #ffe6f0 0%, #e6f0ff 100%);
+      color: var(--black);
+      border-radius: 15px;
+      padding: 1.5rem;
+      font-family: 'VT323', monospace;
+      font-size: 1.3rem;
+      line-height: 1.8;
+      min-height: 80px;
+      border: 3px solid var(--pink-hot);
+      box-shadow: inset 0 0 20px rgba(255, 105, 180, 0.2);
+      position: relative;
+    }
+
+    .preview-box::before {
+      content: '♡ Preview ♡';
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: var(--pink-hot);
+      color: white;
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.6rem;
+    }
+
+    .code-box {
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid var(--purple-neon);
+      border-radius: 15px;
+      padding: 1.2rem;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: var(--lime);
+      max-height: 250px;
+      overflow-y: auto;
+      font-family: 'VT323', monospace;
+      box-shadow: 0 0 20px rgba(218, 112, 214, 0.3);
+    }
+
+    .section-title {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px var(--yellow);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::before {
+      content: '►';
+      color: var(--pink-hot);
+      animation: blink 1s infinite;
+    }
+
+    .msg {
+      font-size: 1rem;
+      color: var(--lime);
+      margin-left: auto;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-family: 'Press Start 2P', cursive;
+      text-shadow: 0 0 10px var(--lime);
+      animation: bounce 0.5s infinite;
+    }
+    
+    .msg.show { 
+      opacity: 1; 
+    }
+
+    /* Glitter effect */
+    .glitter {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fall linear infinite;
+      z-index: 9999;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--black);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(var(--pink-hot), var(--purple-neon));
+      border-radius: 6px;
+      border: 2px solid var(--black);
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(var(--purple-neon), var(--blue-cyan));
+    }
+
+    @media (max-width: 600px) {
+      .tooltip-item { 
+        grid-template-columns: 1fr; 
+      }
+      .tooltip-item .btn-remove { 
+        grid-column: span 1; 
+        width: 100%; 
+        border-radius: 10px;
+      }
+      
+      header h1 {
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>✧･ﾟ: *✧･ﾟ:* Generador de Tooltips *:･ﾟ✧*:･ﾟ✧</h1>
+  <p>♡ Resalta texto con estilo kawaii gamer de los 2000s ♡</p>
+</header>
+
+<div class="container">
+
+  <!-- Texto base -->
+  <div class="card">
+    <label>🎮 Texto completo</label>
+    <textarea id="input-text" placeholder="Escribe aquí tu texto mágico... ✨"></textarea>
+
+    <div style="margin-top:1.5rem; display:flex; gap:1.5rem; flex-wrap:wrap; align-items:center;">
+      <div class="toggle-row">
+        <label class="switch">
+          <input type="checkbox" id="toggle-all"/>
+          <span class="slider"></span>
+        </label>
+        <label for="toggle-all">Marcar <strong style="color:var(--pink-hot);">todas</strong> las apariciones</label>
+      </div>
+      <div style="flex:1; min-width:160px;">
+        <label>✧ Clase CSS por defecto</label>
+        <input type="text" id="default-class" value="tooltip-kawaii" placeholder="tooltip-kawaii"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tooltips -->
+  <div class="card">
+    <div class="section-title">🌸 Fragmentos y tooltips</div>
+    <div id="tooltips-list"></div>
+    <button class="btn btn-add" onclick="addTooltip()">+ Añadir fragmento mágico</button>
+  </div>
+
+  <!-- Generar -->
+  <div class="actions">
+    <button class="btn btn-generate" onclick="generate()">▶ Generar HTML Kawaii</button>
+    <span class="msg" id="copy-msg">¡Copiado! ♡</span>
+  </div>
+
+  <!-- Resultado -->
+  <div class="card" id="result-section">
+    <div class="section-title">👁 Vista previa</div>
+    <div class="preview-box" id="preview-box"></div>
+
+    <div class="section-title" style="margin-top:1.5rem;">📋 Código HTML generado</div>
+    <div class="code-box" id="code-box"></div>
+
+    <div class="actions" style="margin-top:1.5rem;">
+      <button class="btn btn-copy" onclick="copyCode()">📋 Copiar código</button>
+      <button class="btn btn-download" onclick="downloadHTML()">⬇ Descargar .html</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let tooltipCount = 0;
+
+  // Crear glitter
+  function createGlitter() {
+    const glitter = document.createElement('div');
+    glitter.className = 'glitter';
+    glitter.style.left = Math.random() * 100 + 'vw';
+    glitter.style.animationDuration = Math.random() * 3 + 2 + 's';
+    glitter.style.opacity = Math.random();
+    document.body.appendChild(glitter);
+    
+    setTimeout(() => glitter.remove(), 5000);
+  }
+
+  setInterval(createGlitter, 300);
+
+  function addTooltip(frag='', msg='', cls='') {
+    tooltipCount++;
+    const id = tooltipCount;
+    const defCls = document.getElementById('default-class').value || 'tooltip-kawaii';
+    const list = document.getElementById('tooltips-list');
+    const item = document.createElement('div');
+    item.className = 'tooltip-item';
+    item.id = `tip-${id}`;
+    item.innerHTML = `
+      <div class="field">
+        <label>✧ Fragmento</label>
+        <input type="text" class="tip-frag" placeholder="texto a resaltar" value="${escAttr(frag)}"/>
+      </div>
+      <div class="field">
+        <label>♡ Mensaje tooltip</label>
+        <input type="text" class="tip-msg" placeholder="mensaje kawaii" value="${escAttr(msg)}"/>
+      </div>
+      <div class="field">
+        <label>★ Clase CSS</label>
+        <input type="text" class="tip-cls" placeholder="${escAttr(defCls)}" value="${escAttr(cls)}"/>
+      </div>
+      <button class="btn-remove" title="Eliminar" onclick="removeTooltip(${id})">✕</button>
+    `;
+    list.appendChild(item);
+    
+    // Animación de entrada
+    item.style.animation = 'none';
+    setTimeout(() => item.style.animation = 'fadeIn 0.5s ease', 10);
+  }
+
+  function removeTooltip(id) {
+    const el = document.getElementById(`tip-${id}`);
+    if (el) {
+      el.style.transform = 'scale(0) rotate(10deg)';
+      el.style.opacity = '0';
+      setTimeout(() => el.remove(), 300);
+    }
+  }
+
+  function escAttr(str) {
+    return str.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function escapeHTML(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function aplicarTooltips(textoOriginal, tooltips, todas) {
+    let texto = escapeHTML(textoOriginal);
+    const sustituciones = [];
+
+    for (const [fragmento, mensaje, clase] of tooltips) {
+      const fragEsc = escapeHTML(fragmento);
+      const msgEsc = escapeHTML(mensaje);
+      const span = `<span class="${escAttr(clase)}" title="${msgEsc}">${fragEsc}</span>`;
+
+      let inicio = 0;
+      while (true) {
+        const idx = texto.indexOf(fragEsc, inicio);
+        if (idx === -1) break;
+
+        let valido = true;
+        for (const [s, e] of sustituciones) {
+          if (!(idx + fragEsc.length <= s || idx >= e)) {
+            valido = false;
+            break;
+          }
+        }
+        if (valido) {
+          sustituciones.push([idx, idx + fragEsc.length, span]);
+          if (!todas) break;
+        }
+        inicio = idx + fragEsc.length;
+      }
+    }
+
+    sustituciones.sort((a, b) => b[0] - a[0]);
+    for (const [inicio, fin, span] of sustituciones) {
+      texto = texto.slice(0, inicio) + span + texto.slice(fin);
+    }
+    return texto;
+  }
+
+  function generate() {
+    const texto = document.getElementById('input-text').value.trim();
+    if (!texto) { 
+      alert('❌ ¡Escribe un texto primero, nyan! ~'); 
+      return; 
+    }
+
+    const todas = document.getElementById('toggle-all').checked;
+    const defCls = document.getElementById('default-class').value.trim() || 'tooltip-kawaii';
+
+    const items = document.querySelectorAll('.tooltip-item');
+    const tooltips = [];
+    for (const item of items) {
+      const frag = item.querySelector('.tip-frag').value.trim();
+      const msg  = item.querySelector('.tip-msg').value.trim();
+      const cls  = item.querySelector('.tip-cls').value.trim() || defCls;
+      if (frag && msg) tooltips.push([frag, msg, cls]);
+    }
+
+    if (tooltips.length === 0) { 
+      alert('❌ ¡Añade al menos un fragmento con mensaje, desu! ~'); 
+      return; 
+    }
+
+    const resultado = aplicarTooltips(texto, tooltips, todas);
+
+    // Vista previa con estilo kawaii
+    document.getElementById('preview-box').innerHTML = `<p style="color:#ff69b4; font-weight:bold;">${resultado}</p>`;
+
+    // Código completo con estilos kawaii incluidos
+    const html = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>✧ Página Kawaii ✧</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+    
+    body {
+      background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 100%);
+      font-family: 'VT323', monospace;
+      padding: 2rem;
+      color: #fff;
+    }
+    
+    .${defCls} {
+      border-bottom: 3px dashed #ff69b4;
+      cursor: help;
+      color: #ff69b4;
+      text-shadow: 0 0 10px #ff69b4;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    
+    .${defCls}:hover {
+      color: #00ffff;
+      border-bottom-color: #00ffff;
+      text-shadow: 0 0 20px #00ffff;
+    }
+  </style>
+</head>
+<body>
+<p style="font-size:1.3rem;">${resultado}</p>
+</body>
+</html>`;
+
+    document.getElementById('code-box').textContent = html;
+
+    const section = document.getElementById('result-section');
+    section.classList.add('visible');
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    // Efecto de celebración
+    for(let i = 0; i < 10; i++) {
+      setTimeout(createGlitter, i * 100);
+    }
+  }
+
+  function copyCode() {
+    const code = document.getElementById('code-box').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      const msg = document.getElementById('copy-msg');
+      msg.classList.add('show');
+      setTimeout(() => msg.classList.remove('show'), 2000);
+    });
+  }
+
+  function downloadHTML() {
+    const code = document.getElementById('code-box').textContent;
+    if (!code) { alert('¡Genera primero el HTML, desu! ~'); return; }
+    const blob = new Blob([code], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'tooltips-kawaii.html';
+    a.click();
+  }
+
+  // Añadir un tooltip inicial al cargar con animación
+  window.onload = () => {
+    addTooltip();
+  };
+</script>
+</body>
+</html>
